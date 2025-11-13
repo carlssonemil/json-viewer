@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+/* Tooltip styling */
+.tippy-box {
+  background-color: theme('colors.zinc.700');
+}
+.tippy-box > .tippy-arrow {
+  color: theme('colors.zinc.700');
+}
