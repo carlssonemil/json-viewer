@@ -1,5 +1,7 @@
 import { createApp } from "vue";
 
+import { init } from "@plausible-analytics/tracker";
+
 import VueTippy from "vue-tippy";
 import "tippy.js/dist/tippy.css";
 
@@ -17,3 +19,7 @@ app.component("BaseInlineButton", BaseInlineButton);
 app.component("BaseTextarea", BaseTextarea);
 
 app.use(VueTippy).mount("#app");
+
+init({
+  domain: "json.emca.app",
+});
