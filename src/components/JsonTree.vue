@@ -1,7 +1,9 @@
 <template>
   <ul class="ml-0 list-none">
     <li
-      v-for="({ key, val, path, isObjectVal, isEmptyVal }, index) in entries"
+      v-for="(
+        { key, val, path, isObjectVal, isArrayVal, isEmptyVal }, index
+      ) in entries"
       :key="path"
       class="relative pl-6"
     >
@@ -21,13 +23,23 @@
       <template v-if="isObjectVal && collapsed.has(path)">
         <span class="text-sky-500 select-text font-bold">"{{ key }}"</span>
         <span class="text-gray-400 opacity-50 select-text mr-2">:</span>
-        <span class="text-gray-400 opacity-50 select-text">{</span>
+
+        <!-- Opening brace/bracket -->
+        <span class="text-gray-400 opacity-50 select-text">
+          {{ isArrayVal ? "[" : "{" }}
+        </span>
+
         <span
           class="cursor-pointer text-gray-400 opacity-50 select-text mx-2"
           @click="toggle(path)"
           >...</span
         >
-        <span class="text-gray-400 opacity-50 select-text">}</span>
+
+        <!-- Closing brace/bracket -->
+        <span class="text-gray-400 opacity-50 select-text">
+          {{ isArrayVal ? "]" : "}" }}
+        </span>
+
         <span v-if="!isLast(index)" class="text-gray-400 opacity-50 select-text"
           >,</span
         >
@@ -52,7 +64,9 @@
 
           <!-- Empty object/array -->
           <template v-else-if="isEmptyVal">
-            <span class="text-gray-400 opacity-50 select-text">{ }</span>
+            <span class="text-gray-400 opacity-50 select-text">
+              {{ isArrayVal ? "[ ]" : "{ }" }}
+            </span>
             <span
               v-if="!isLast(index)"
               class="text-gray-400 opacity-50 select-text"
@@ -62,7 +76,9 @@
 
           <!-- Non-empty object/array, opening brace -->
           <template v-else>
-            <span class="text-gray-400 opacity-50 select-text">{</span>
+            <span class="text-gray-400 opacity-50 select-text">
+              {{ isArrayVal ? "[" : "{" }}
+            </span>
           </template>
         </div>
 
@@ -75,7 +91,9 @@
 
         <!-- Closing brace + trailing comma for non-empty object/array -->
         <div v-if="isObjectVal && !isEmptyVal">
-          <span class="text-gray-400 opacity-50 select-text">}</span>
+          <span class="text-gray-400 opacity-50 select-text">
+            {{ isArrayVal ? "]" : "}" }}
+          </span>
           <span
             v-if="!isLast(index)"
             class="text-gray-400 opacity-50 select-text"
@@ -125,10 +143,11 @@ const entries = computed(() => {
   const raw = props.data ?? {};
   return Object.entries(raw).map(([key, val]) => {
     const isObjectVal = isObject(val);
+    const isArrayVal = Array.isArray(val);
     const isEmptyVal = isObjectVal && isEmptyObject(val);
     const path = childPath(key);
 
-    return { key, val, path, isObjectVal, isEmptyVal };
+    return { key, val, path, isObjectVal, isArrayVal, isEmptyVal };
   });
 });
 
