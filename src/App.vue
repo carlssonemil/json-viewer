@@ -1,19 +1,21 @@
 <template>
   <div class="min-h-screen bg-zinc-950 p-4">
-    <AppHeader />
+    <div class="max-w-6xl mx-auto lg:pt-5 h-full">
+      <AppHeader />
 
-    <!-- JSON input -->
-    <JsonEditorPanel
-      v-model="rawJson"
-      @parsed="onParsed"
-      @parse-error="onParseError"
-    />
+      <!-- JSON input -->
+      <JsonEditorPanel
+        v-model="rawJson"
+        @parsed="onParsed"
+        @parse-error="onParseError"
+      />
 
-    <!-- Error alert -->
-    <ErrorAlert :error="error" />
+      <!-- Error alert -->
+      <ErrorAlert :error="error" />
 
-    <!-- JSON tree preview -->
-    <JsonTreePanel v-if="jsonData" :data="jsonData" />
+      <!-- JSON tree preview -->
+      <JsonTreePanel v-if="jsonData" :data="jsonData" />
+    </div>
   </div>
 </template>
 

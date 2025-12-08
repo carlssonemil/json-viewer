@@ -1,8 +1,9 @@
 <template>
   <textarea
+    id="json-input"
     v-model="model"
     @input="$emit('input', model)"
-    class="w-full overflow-hidden p-2 bg-zinc-900 text-gray-200 border border-zinc-800 rounded-md focus:outline-none focus:ring focus:ring-zinc-700"
+    class="w-full min-h-12 overflow-hidden p-2 bg-zinc-900 text-gray-200 border border-zinc-800 rounded-md focus:outline-none focus:ring focus:ring-zinc-700"
     v-bind="$attrs"
   />
 </template>
